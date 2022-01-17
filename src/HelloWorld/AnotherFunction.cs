@@ -7,13 +7,10 @@ using Newtonsoft.Json;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.APIGatewayEvents;
 
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
-
 namespace HelloWorld
 {
 
-    public class Function
+    public class AnotherFunction
     {
 
         private static readonly HttpClient client = new HttpClient();
@@ -34,7 +31,7 @@ namespace HelloWorld
             var location = await GetCallingIP();
             var body = new Dictionary<string, string>
             {
-                { "message", "hello sam accelerate!" },
+                { "message", "hello from another function!" },
                 { "location", location }
             };
 

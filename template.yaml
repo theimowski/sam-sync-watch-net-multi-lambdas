@@ -26,6 +26,24 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+  AnotherFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./src/HelloWorld/
+      Handler: HelloWorld::HelloWorld.AnotherFunction::FunctionHandler
+      Runtime: dotnetcore3.1
+      Architectures:
+        - x86_64
+      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+        Variables:
+          PARAM1: VALUE
+      Events:
+        HelloWorld:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /another
+            Method: get
+
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -40,3 +58,9 @@ Outputs:
   HelloWorldFunctionIamRole:
     Description: "Implicit IAM Role created for Hello World function"
     Value: !GetAtt HelloWorldFunctionRole.Arn
+  AnotherFunction:
+    Description: "Another Lambda Function ARN"
+    Value: !GetAtt AnotherFunction.Arn
+  AnotherFunctionIamRole:
+    Description: "Implicit IAM Role created for Another function"
+    Value: !GetAtt AnotherFunctionRole.Arn
